@@ -1,0 +1,71 @@
+ <!--Navbar Start-->
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">E-Wallet</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto my-2 my-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" href="#"
+            >Home <span class="sr-only">(current)</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'pay_or_receive' %}">Pay/Receive</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login Now</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/requestspending">money requests</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">Signup</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/wallet">Balance</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin">Admin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/transactionhistory"
+            >Transaction history</a
+          >
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Dropdown
+          </a>
+          {% for customer in customers %}
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">{{Customer.email}}</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+        {% endfor %}
+        <li class="nav-item"></li>
+      </ul>
+    </div>
+  </nav>
+  <!--Navbar End-->
