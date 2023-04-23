@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% load crispy_forms_tags %}
+{% block contents %}
+
+<!-- For requested received by user -->
+{% if received_requests %}
+
+<div class="card p-3 m-2">
+    <h3>Approve/Reject Requests</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+
+                <th scope="col">Requested By</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Approve</th>
+                <th scope="col">Reject</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user_request in received_requests %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{user_request.requesting_user}}</td>
+                <td>{{user_request.request_amount}}</td>
+                <td><a href="{% url 'approve_request' user_request.id %}"
+                        onclick="return confirm('Are you sure you want to approve this request?')">
+                        <button class="btn btn-primary btn-sm ">Approve</button></a></td>
+                <td><a href="{% url 'reject_request' user_request.id %}"
+                        onclick="return confirm('Are you sure you want to reject this request?')">
+                        <button class="btn btn-danger btn-sm ">Reject</button></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="card p-3 m-2">
+    <h5>No pending requests found to approve.</h5>
+</div>
+ {% endif %}
+
+<!-- For payments requested by user -->
+
+{% if created_requests %}
+
+<div class="card p-3 m-2">
+    <h3>Your Requests waiting approval</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Requested From</th>
+                <th scope="col">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user_request in created_requests %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{user_request.paying_user}}</td>
+                <td>{{user_request.request_amount}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="card p-3 m-2">
+    <h5>No pending requests found.</h5>
+</div>
+ {% endif %}
+
+{% endblock %}

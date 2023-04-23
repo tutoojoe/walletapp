@@ -8,10 +8,12 @@ class TransactionRequestForm(forms.Form):
         queryset=get_user_model().objects.exclude(is_superuser=True)
     )
     CHOICES = (
-        ('make_payment', 'Make Payment'),
-        ('request_payment', 'Request Payment'),
+        ("make_payment", "Make Payment"),
+        ("request_payment", "Request Payment"),
     )
-    make_payment_or_request_payment = forms.ChoiceField(choices=CHOICES, widget=forms.Select())
+    make_payment_or_request_payment = forms.ChoiceField(
+        choices=CHOICES, widget=forms.Select()
+    )
     transaction_amount = forms.DecimalField(max_digits=10, decimal_places=2)
 
     def __init__(self, *args, **kwargs):
@@ -23,4 +25,4 @@ class TransactionRequestForm(forms.Form):
             )
 
     class Meta:
-        fields = ["make_payment_or_request_payment", "transaction_amount", 'user']
+        fields = ["make_payment_or_request_payment", "transaction_amount", "user"]

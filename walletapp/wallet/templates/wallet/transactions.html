@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% load crispy_forms_tags %}
+{% block contents %}
+
+<!-- For requested received by user -->
+{% if transactions %}
+
+<div class="card p-3 m-2">
+    <h3>Your Transactions</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Transaction ref</th>
+                <th scope="col">Transaction ID</th>
+                <th scope="col">Type</th>
+                <th scope="col">Receiver</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{transaction.transaction_id}}</td>
+                <td>{{transaction.id}}</td>
+                <td>{{transaction.transaction_method}}</td>
+                <td>{{transaction.receiving_user}}</td>
+                <td>{{transaction.transaction_amount}}</td>
+                <td>{{transaction.remarks}}</td>
+               </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="card p-3 m-2">
+    <h5>No transactions found</h5>
+</div>
+ {% endif %}
+
+
+{% endblock %}

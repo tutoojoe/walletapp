@@ -16,17 +16,33 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto my-2 my-lg-0">
         <li class="nav-item active">
-          <a class="nav-link" href="#"
+          <a class="nav-link" href="{% url 'homepage' %}"
             >Home <span class="sr-only">(current)</span></a
           >
         </li>
+        {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'pay_or_receive' %}">Pay/Receive</a>
+         
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'view_transactions' %}">Transactions</a>
+        </li>  
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'payment_requests' %}">Payment Requests</a>
+        </li>        
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% else %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'login' %}">Login Now</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">Signup</a>
+        </li>
+        {% endif %}
+        <!-- <li class="nav-item">
           <a class="nav-link" href="/requestspending">money requests</a>
         </li>
         <li class="nav-item">
@@ -42,8 +58,8 @@
           <a class="nav-link" href="/transactionhistory"
             >Transaction history</a
           >
-        </li>
-        <li class="nav-item dropdown">
+        </li> -->
+        <!-- <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -54,8 +70,8 @@
             aria-expanded="false"
           >
             Dropdown
-          </a>
-          {% for customer in customers %}
+          </a> -->
+          <!-- {% for customer in customers %}
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#">{{Customer.email}}</a>
             <a class="dropdown-item" href="#">Another action</a>
@@ -64,7 +80,7 @@
           </div>
         </li>
         {% endfor %}
-        <li class="nav-item"></li>
+        <li class="nav-item"></li> -->
       </ul>
     </div>
   </nav>

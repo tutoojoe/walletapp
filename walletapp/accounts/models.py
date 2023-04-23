@@ -49,6 +49,5 @@ class WalletUser(AbstractUser):
 
     REQUIRED_FIELDS = ["first_name", "last_name", "password"]
 
-
     def __str__(self):
         return self.get_full_name()

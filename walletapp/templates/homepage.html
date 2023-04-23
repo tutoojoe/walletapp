@@ -4,7 +4,43 @@
 
 {% load crispy_forms_tags %}
 {% block contents %}
+{% if user.is_authenticated %}
+<div class="card m-3 p-3">
+    <h1>Hi, {{user.get_full_name}}</h1>
+</div>
+<!--wallet details-->
+<div class="card m-3 p-3">
+    {% if wallet %}
+    <h4>Your wallet balance is Rs: {{wallet.wallet_amount}}</h4>
+    {% endif%}
+</div>
 
+<!--pending requests to approve-->
+<div class="card m-3 p-3">
+    {% if received_payment_requests_count %}
+    {% if received_payment_requests_count > 0%}
+    <h5>Your have {{received_payment_requests_count}} pending to review..!</h5>
+    {% endif %}
+    {% else %}
+    <h5>Your have no pending requests to review..!</h5>
+
+    {% endif %}
+</div>
+
+<!--pending requests to receive payment-->
+<div class="card m-3 p-3">
+    {% if created_payment_requests_count %}
+    {% if created_payment_requests_count > 0%}
+    <h5>Your {{created_payment_requests_count}} requests are still not received..!</h5>
+    {% endif %}
+    {% else %}
+    <h5>Your have no pending requests to receive amount..!</h5>
+    {% endif %}
+</div>
+
+<!--if user is not authenticated-->
+{% else %}
 <h1>This is homepage</h1>
+{% endif %}
 
 {% endblock %}

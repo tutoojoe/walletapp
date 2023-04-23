@@ -19,19 +19,25 @@ def register(request):
             password = form.cleaned_data["password"]
             kwargs = {
                 "first_name": form.cleaned_data["first_name"],
-            "last_name" : form.cleaned_data["last_name"],
-            "is_premium_user" : form.cleaned_data["is_premium_user"]
+                "last_name": form.cleaned_data["last_name"],
+                "is_premium_user": form.cleaned_data["is_premium_user"],
             }
-            user = WalletUser.objects.create_user(email=email, password=password, **kwargs)
+            user = WalletUser.objects.create_user(
+                email=email, password=password, **kwargs
+            )
             if user.is_premium_user:
                 UserWallet.objects.create(wallet_amount=2500, wallet_user=user)
-                print(f"Premium user wallet created and Rs:1000 credited for user {user}.")
+                print(
+                    f"Premium user wallet created and Rs:1000 credited for user {user}."
+                )
             else:
                 UserWallet.objects.create(wallet_amount=1000, wallet_user=user)
-                print(f"Normal user wallet created and Rs:1000 credited for user {user}.")
+                print(
+                    f"Normal user wallet created and Rs:1000 credited for user {user}."
+                )
 
             print("User Registration Successfull")
-            return redirect('login')
+            return redirect("login")
         else:
             context = {"form": form}
             print("Some error in form")
@@ -45,15 +51,16 @@ def login(request):
     form = WalletUserLoginForm(request.POST or None)
     if request.method == "POST":
         if form.is_valid():
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
             user = auth.authenticate(email=email, password=password)
             if user is not None:
                 auth.login(request, user)
-                return redirect('homepage')
+                return redirect("homepage")
             else:
                 print("Invalid credentials")
-                return render(request, "accounts/login.html")
+                context = {"form": form}
+                return render(request, "accounts/login.html", context)
         else:
             print("Form invalid")
             context = {"form": form}
@@ -61,7 +68,8 @@ def login(request):
     context = {"form": form}
     return render(request, "accounts/login.html", context)
 
-@login_required('login')
+
+@login_required(login_url="login")
 def logout(request):
     auth.logout(request)
     print("user successfully logged out")
